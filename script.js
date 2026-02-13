@@ -1,6 +1,6 @@
 // Mike's Diagnostic Hardware - Landing Page Script
 
-const API_URL = 'http://localhost:3001'; // Change for production
+const API_URL = 'https://mikes-diagnostic-backend-production.up.railway.app'; // Production API
 
 // Smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -23,14 +23,14 @@ trialButtons.forEach(btn => {
 
 async function handleTrialClick(e) {
     e.preventDefault();
-    
+
     // Show modal or redirect to checkout
     showTrialModal();
 }
 
 function showTrialModal() {
     const email = prompt('Enter your email to start your free trial:');
-    
+
     if (!email || !isValidEmail(email)) {
         alert('Please enter a valid email address');
         return;
@@ -72,7 +72,7 @@ async function createCheckoutSession(email, tier) {
         }
 
         const data = await response.json();
-        
+
         // Redirect to Stripe checkout
         if (data.url) {
             window.location.href = data.url;
@@ -103,7 +103,7 @@ async function loadPricingData() {
 // Validate license key form (if added)
 async function validateLicense() {
     const licenseKey = prompt('Enter your license key:');
-    
+
     if (!licenseKey) return;
 
     try {
@@ -131,7 +131,7 @@ async function validateLicense() {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Mike\'s Diagnostic Hardware - Landing Page Loaded');
-    
+
     // Load pricing data
     loadPricingData();
 
@@ -141,11 +141,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function setupTierButtons() {
     const buttons = document.querySelectorAll('.pricing-card .btn-primary');
-    
+
     buttons.forEach((btn, index) => {
         const tiers = ['starter', 'professional', 'enterprise'];
         const tier = tiers[Math.floor(index / 2)]; // Approximate tier
-        
+
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             startTrialForTier(tier);
@@ -155,7 +155,7 @@ function setupTierButtons() {
 
 function startTrialForTier(tier) {
     const email = prompt('Enter your email to start your free trial:');
-    
+
     if (!email || !isValidEmail(email)) {
         alert('Please enter a valid email address');
         return;
@@ -167,7 +167,7 @@ function startTrialForTier(tier) {
 // Add analytics tracking
 function trackEvent(eventName, data = {}) {
     console.log(`Event: ${eventName}`, data);
-    
+
     // You can integrate with analytics services here
     // Example: Google Analytics, Mixpanel, etc.
 }
